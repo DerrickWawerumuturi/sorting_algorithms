@@ -1,4 +1,4 @@
-include "sort.h"
+#include "sort.h"
 
 /**
  * radix_sort - sorts an array following the Radix sort algorithm
@@ -42,4 +42,15 @@ void count_sort_LSD(int *array, size_t size, size_t lsd)
                 count_arr[(array[k] / lsd) % 10]++;
         for (l = 1; l < 10; l++)
                 count_arr[l] += count_arr[l - 1];
+
+        for (m = size - 1; m >= 0; m--)
+        {
+                out_arr[count_arr[(array[m] / lsd) % 10] - 1] = array[m];
+                count_arr[(array[m] / lsd) % 10]--;
+        }
+
+        for (n = 0; n < size; n++)
+                array[n] = out_arr[n];
+
+        free(out_arr);
 }
